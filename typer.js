@@ -152,11 +152,33 @@ TYPER.prototype = {
 
 				this.guessed_words += 1;
 
-                //update player score
-                this.player.score = this.guessed_words;
+        //update player score
+        this.player.score = this.guessed_words;
+        var score = this.player.score;
 
-				//loosin uue sõna
+        //loosin uue sõna
 				this.generateWord();
+
+        //AJAX
+    		var xhttp = new XMLHttpRequest();
+
+    		//mis juhtub kui pÃ¤ring lÃµppeb
+    		xhttp.onreadystatechange = function() {
+
+    			console.log(xhttp.readyState);
+
+    			if (xhttp.readyState == 4 && xhttp.status == 200) {
+
+    				console.log(xhttp.responseText);
+    			}
+    		};
+
+    		//teeb pÃ¤ringu
+    		xhttp.open("GET", "save.php?player="+this.player.name+"&score="+score, true);
+    		xhttp.send();
+
+
+
 			}
 
 			//joonistan uuesti
